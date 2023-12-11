@@ -4,7 +4,7 @@
 ##########################
 #options(warn=-1)
 
-# Load required packages
+# Load required package
 library(stringr)
 
 # Import data
