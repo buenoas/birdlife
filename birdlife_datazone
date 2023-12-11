@@ -8,12 +8,12 @@
 library(stringr)
 
 # Import data
-birdlife = read.csv("HBW_BirdLife_List of birds_v7.csv")
+birdlife = read.csv("https://raw.githubusercontent.com/buenoas/birdlife/main/HBW_BirdLife_List_of_birds_v7.csv")
 
 birdlife$Forest.dependency = NA
 birdlife$Migratory.status = NA
-birdlife$eoo_breeding_km2 = NA
-birdlife$eoo_non_breeding_km2 = NA
+birdlife$Eoo.breeding.km2 = NA
+birdlife$Eoo.non_breeding.km2 = NA
 
 # WEB SCRAPING
 for (i in 1:nrow(birdlife)) {
@@ -48,15 +48,19 @@ birdlife$Forest.dependency = gsub("</td>", "", birdlife$Forest.dependency)
 birdlife$Migratory.status = gsub("<td>", "", birdlife$Migratory.status)
 birdlife$Migratory.status = gsub("</td>", "", birdlife$Migratory.status)
 
-birdlife$eoo_breeding_km2 = gsub("<td>", "", birdlife$eoo_breeding_km2)
-birdlife$eoo_breeding_km2 = gsub(" km<sup>2</sup></td>", "", birdlife$eoo_breeding_km2)
-birdlife$eoo_breeding_km2 = as.numeric(gsub(",", "", birdlife$eoo_breeding_km2))
+birdlife$Eoo.breeding.km2 = gsub("<td>", "", birdlife$Eoo.breeding.km2)
+birdlife$Eoo.breeding.km2 = gsub(" km<sup>2</sup></td>", "", birdlife$Eoo.breeding.km2)
+birdlife$Eoo.breeding.km2 = as.numeric(gsub(",", "", birdlife$Eoo.breeding.km2))
 
-birdlife$eoo_non_breeding_km2 = gsub("<td>", "", birdlife$eoo_non_breeding_km2)
-birdlife$eoo_non_breeding_km2 = gsub(" km<sup>2</sup></td>", "", birdlife$eoo_non_breeding_km2)
-birdlife$eoo_non_breeding_km2 = as.numeric(gsub(",", "", birdlife$eoo_non_breeding_km2))
+birdlife$Eoo.non_breeding.km2 = gsub("<td>", "", birdlife$Eoo.non_breeding.km2)
+birdlife$Eoo.non_breeding.km2 = gsub(" km<sup>2</sup></td>", "", birdlife$Eoo.non_breeding.km2)
+birdlife$Eoo.non_breeding.km2 = as.numeric(gsub(",", "", birdlife$Eoo.non_breeding.km2))
 
+
+# See part of the results
 rbind(head(birdlife),
       tail(birdlife))
 
-#write.csv(birdlife, "ForestDependency.csv", row.names = FALSE)
+
+# Save the results
+write.csv(birdlife, "birdlife_datazone.csv", row.names = FALSE)
